@@ -1,0 +1,52 @@
+body{
+    background-image:url("bakgrund2.png");
+    margin: auto; 
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.box{
+    margin: auto;
+    text-align: center; 
+    width: 50%; 
+    height: 400px;
+    margin-top: 150px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 70px;
+    color: black; 
+    box-shadow: 3px 6px 7px #463e3e;
+}
+
+.articleseasonal{
+    display: none;
+    height: 0px;
+    width: 0px;
+}
+
+.Header{
+    display: flex;
+    width: 100%;
+}
+
+#h1weather{
+    margin-right: 25%;
+}
+
+#h1season {
+    border-bottom: 2px solid grey; 
+    border-left: 2px solid grey;
+}
+
+.status{
+    display: flex;
+}
+
+.status div{ 
+    width: 50%;
+}
+
+.statusleft{
+    text-align: left;
+
+}
