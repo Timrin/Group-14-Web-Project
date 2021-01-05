@@ -1,4 +1,5 @@
 import apigateway.weatherAPI;
+import connectSpotify.SearchTrack;
 
 import static spark.Spark.port;
 
@@ -10,6 +11,8 @@ public class main {
 		port(5000);
 
 		weatherAPI.initAPI();
+		SearchTrack searchTrack = new SearchTrack();
+		searchTrack.connectToSpotify();
 
 		System.out.println("Server Running");
 
