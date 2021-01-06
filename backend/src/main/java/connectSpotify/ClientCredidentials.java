@@ -20,8 +20,8 @@ import java.util.Base64;
 
 
 public class ClientCredidentials {
-    private  String CLIENT_ID = "001cc42ed69f4e23a2f45a08f9e0d41f";
-    private String CLIENT_SECRET ="3acd97c41b0b4cdfbdaeb24c5d52acdf";
+    private  String CLIENT_ID = "";
+    private String CLIENT_SECRET ="";
     private  String REDIRECT_URI = "http://localhost:8888/callback";
     private  String url = "https://accounts.spotify.com/authorize?" +
             "client_id=" + CLIENT_ID + "&response_type=code&redirect_uri=" +
