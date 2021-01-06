@@ -10,7 +10,7 @@ public class spotifyAPI {
     private static SearchTrack searchTrack;
 
     public spotifyAPI() {
-        clientCredidentials = new ClientCredidentials();
+        //clientCredidentials = new ClientCredidentials();
         searchTrack = new SearchTrack();
 
     }

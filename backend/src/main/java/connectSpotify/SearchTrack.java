@@ -1,5 +1,6 @@
 package connectSpotify;
 
+import apimediator.WeatherCondition;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import org.apache.http.HttpEntity;
@@ -33,14 +34,15 @@ public class SearchTrack {
 
     //Create Get request using accesscode, get data and use Reader object to later parse into Track object
     //todo Denne metoden behøver å ta i mot været
-    public void connectToSpotify(String ACCESS_CODE) {
+    public void connectToSpotify(String ACCESS_CODE, String weatherType) {
+
         String url = "https://api.spotify.com/v1/search";
         try {
             httpclient = HttpClients.custom().build();
             HttpUriRequest request = RequestBuilder.get()
                     .setUri(url)
                     .addHeader(HttpHeaders.AUTHORIZATION, ACCESS_CODE)
-                    .addParameter("q", "cardigan")      //FIXME: value ska vara weatherType
+                    .addParameter("q", weatherType)      //FIXME: value ska vara weatherType
                     .addParameter("type", "track")
                     .addParameter("limit", "2")
                     .build();

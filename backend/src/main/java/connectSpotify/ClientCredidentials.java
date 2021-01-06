@@ -1,5 +1,7 @@
 package connectSpotify;
 
+import apimediator.OpenWeatherApiConnect;
+import apimediator.WeatherCondition;
 import com.google.gson.Gson;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -18,8 +20,8 @@ import java.util.Base64;
 
 
 public class ClientCredidentials {
-    private  String CLIENT_ID = "";
-    private String CLIENT_SECRET ="";
+    private  String CLIENT_ID = "001cc42ed69f4e23a2f45a08f9e0d41f";
+    private String CLIENT_SECRET ="3acd97c41b0b4cdfbdaeb24c5d52acdf";
     private  String REDIRECT_URI = "http://localhost:8888/callback";
     private  String url = "https://accounts.spotify.com/authorize?" +
             "client_id=" + CLIENT_ID + "&response_type=code&redirect_uri=" +
@@ -35,17 +37,20 @@ public class ClientCredidentials {
     private Reader reader = null;
     private HttpClient httpclient = null;
     private Gson gson = null;
+    private WeatherCondition weatherCondition;
     private SearchTrack searchTrack;
-
-    public ClientCredidentials() {
+private String weather;
+    public ClientCredidentials(String weather) {
+        this.weatherCondition = weatherCondition;
         searchTrack = new SearchTrack();
+        this.weather = weather;
 
     }
 
 /*
 * This mehtod connects to Spotify via the Client Credidentials authorization flow.
 */
-    public void connect() {
+    public void connect(String weather) {
         String encoded = Base64.getEncoder().encodeToString(ID_SECRET.getBytes());
         String ny = "Basic " + encoded;
         try {
@@ -65,7 +70,7 @@ public class ClientCredidentials {
             data = entity.getContent();
 
             reader = new InputStreamReader(data);
-            setJsonAccess(reader);
+            setJsonAccess(reader,  weather );
 
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -77,18 +82,23 @@ public class ClientCredidentials {
 * This method parses the accesstoken from the response JSON obj. And sends it to the searchTrack method
 * todo dette skal ikke gjøres herifra. Burde være et sted hvor vi kan samle det med været.
 * */
-    public void setJsonAccess (Reader reader){
+    public void setJsonAccess (Reader reader, String weather){
 
         gson = new Gson();
         AccessToken token = gson.fromJson(reader, AccessToken.class);
         String access_token = "Bearer "+token.getAccess_token();
-        searchTrack.connectToSpotify(access_token);
+        searchTrack.connectToSpotify(access_token, weather );
 
 
     }
 
-    public static void main(String[] args) {
-        ClientCredidentials cc = new ClientCredidentials();
+    /*public static void main(String[] args) {
+        OpenWeatherApiConnect.getWeatherCondition(55.6059,13.0007);
+        WeatherCondition weatherCondition = new WeatherCondition();
+        ClientCredidentials cc = new ClientCredidentials(weatherCondition);
         cc.connect();
-    }
+       // System.out.println(weatherCondition.getMain());
+    }*/
+
+
 }

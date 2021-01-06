@@ -2,6 +2,7 @@ package apimediator;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import connectSpotify.ClientCredidentials;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -15,7 +16,7 @@ import org.apache.http.util.EntityUtils;
  */
 
 public class OpenWeatherApiConnect {
-    private static String API_KEY = "a9f198ebe1961299a878f49640107478"; //Ta bort innan du pushar upp!!!!!!!!!!!!
+    private static String API_KEY = ""; //Ta bort innan du pushar upp!!!!!!!!!!!!
 
     /**
      * Method which fetches an Json object from openWeather api
@@ -97,6 +98,13 @@ public class OpenWeatherApiConnect {
         System.out.println("Hello World");
         String res = OpenWeatherApiConnect.getWeatherCondition(55.6059,13.0007); // Coordinates for Malmo
         System.out.println(res);
+
+        // test av å hente weathertype til spotify. funker nice.
+        ClientCredidentials clientCredidentials = new ClientCredidentials(res);
+        clientCredidentials.connect(res);
+
+
+
     }
 
 }
