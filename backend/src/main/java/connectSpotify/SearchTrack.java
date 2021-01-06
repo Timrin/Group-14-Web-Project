@@ -13,16 +13,13 @@ import org.apache.http.impl.client.HttpClients;
 import spotify.Envelope;
 import spotify.Item;
 import spotify.Track;
-
 import java.io.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class SearchTrack {
 
-
-    private static final String ACCESS_CODE = "Bearer ";
     private HttpResponse httpResponse = null;
     private HttpClient httpclient = null;
     private StatusLine status = null;
@@ -35,13 +32,13 @@ public class SearchTrack {
     private String weatherType;
 
     //Create Get request using accesscode, get data and use Reader object to later parse into Track object
-    public void connectToSpotify() {
+    //todo Denne metoden behøver å ta i mot været
+    public void connectToSpotify(String ACCESS_CODE) {
         String url = "https://api.spotify.com/v1/search";
         try {
             httpclient = HttpClients.custom().build();
             HttpUriRequest request = RequestBuilder.get()
                     .setUri(url)
-                    //  .setHeader(HttpHeaders.AUTHORIZATION, SPOTIFY_JULIA)
                     .addHeader(HttpHeaders.AUTHORIZATION, ACCESS_CODE)
                     .addParameter("q", "cardigan")      //FIXME: value ska vara weatherType
                     .addParameter("type", "track")
@@ -71,12 +68,22 @@ public class SearchTrack {
         Envelope envelope = gson.fromJson(reader, Envelope.class);
         tracks = envelope.getTracks();
         items = tracks.getItems();
-        ArrayList<String> playlist = new ArrayList<>();
+      //  ArrayList<String> playlist = new ArrayList<>();
 
+       /* for (Item item : items) {
+            String trackUri = item.getUri();
+            String title = item.getName();
+            playlist.add(title+" "+trackUri);
+            System.out.println(playlist.get(0));
+        }*/
+
+        HashMap<String, String> playlist = new HashMap<>();
         for (Item item : items) {
             String trackUri = item.getUri();
-            playlist.add(trackUri);
-            System.out.println(trackUri);
+            String title = item.getName();
+            playlist.put(title,trackUri);
+
+            System.out.println(playlist);
         }
     }
 

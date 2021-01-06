@@ -12,7 +12,7 @@ public class main {
 
 		weatherAPI.initAPI();
 		SearchTrack searchTrack = new SearchTrack();
-		searchTrack.connectToSpotify();
+		//searchTrack.connectToSpotify();
 
 		System.out.println("Server Running");
 
