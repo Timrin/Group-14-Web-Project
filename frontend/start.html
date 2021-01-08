@@ -7,19 +7,57 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="wrapper">
-        <article>
-            <img src="solen.png" alt="sun" class="sol">
-            <h1>Weather Playlist</h1>
-            <p class="undertext">Start a custom-made playlist perfect for current weather!</p>
-            <button>Play</button>
-        </article>
-        <article>
-            <img src="calendar.png" alt="calendar" class="calender"> 
-            <h1>Seasonal Playlist</h1>
-            <p class="undertext">Start a playlist perfect for the season or todays date!</p>
-            <button>Play</button>
-        </article>
+<div class="grid-container">
+<div class="item1">
+    <p class="play">Playing...</p>
+    <h1> Title - Artist</h1>
+    <button>Play</button>
+    <button>Next</button>
+</div>
+
+<div class="item2">
+    <div id="clouddiv" class="left">
+        <p>Want the perfect playlist for the weather outside?</p>
+        <h1 class="pink">Try out the Weather playlist!</h1> 
     </div>
+    <img src="cloudy.png" alt="ikon" id="cloud">
+</div>
+
+    <div class="item3"> 
+        <p class="select">Select a location...</p>
+        <div style="width: 100%"><iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=malm%C3%B6+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe></div>
+        <button>Select Location</button>
+        <button>Randomize</button>
+        <h1>City, Country - Weather</h1>
+    </div>
+    <div class="item4">
+        <p>...or</p>
+        <p>Select weather manually</p>
+        <div class="selectmanually"> 
+            <button id="">h</button>
+            <button id="">h</button>
+            <button id="">h</button>
+            <button id="">h</button>
+            <button id="">h</button>
+            <button id="">h</button>
+            <button id="">h</button>
+        </div>
+    </div>
+
+    <div class="item5">
+        <div class="playlistdiv left">
+        <p>Or maybe a playlist for the season?</p>
+        <h1 class="purple">Try the Seasonal Playlist!</h1>
+        </div >
+        <div class="calendardiv">
+            <img src="calendar.png" id="calendar">
+        </div>
+        <button id="playbutton"> <p> Play </p><img src="play.png" alt="playimg" id="playimg"></button>
+    </div>
+    <div class="item6">
+        <p>Finns det någon funktion som kan fylla detta utrymme?</p>
+    </div>
+
+</div>
 </body>
 </html>
