@@ -80,6 +80,10 @@ h1 {
     margin: 0px;
 }
 
+#currentplaying{
+  font-size: 22px;
+}
+
 p{
     font-size: 20px;
     padding: 0px;
@@ -93,6 +97,13 @@ p{
     float: right;
 }
 
+#weatheric{
+  width: 75px;
+  padding: 5px;
+  padding-top: 20px;
+  padding-right: 7px;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -104,8 +115,8 @@ p{
   }
 
   .item1, .item2, .item3, .item4{
-    background-color: rgba(45, 13, 141, 0.8);
-    box-shadow: 10px 10px rgb(226, 59, 137);
+    background-color: #2d0d8dcc;
+    box-shadow: 10px 10px #e23b89;
   }
 
   .item5, .item6{
@@ -120,6 +131,7 @@ p{
     padding-left: 30px !important;
     
   }
+
   .item2 {
     grid-column: 1 / 9;
     grid-row: 2;

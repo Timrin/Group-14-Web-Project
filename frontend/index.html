@@ -17,7 +17,7 @@
 <div class="grid-container">
 <div class="item1">
     <p class="play">Playing...</p>
-    <h1> Title - Artist</h1>
+    <h1 id="currentplaying"> Title - Artist</h1>
     <button id="TogglePlay">Play</button>
     <button id="SkipSong">Next</button>
 </div>
@@ -40,13 +40,13 @@
     <div class="item4">
         <p>Select weather manually</p>
         <div class="selectmanually"> 
-            <button onclick="startWeatherPlaylistWeather('snow')">snow</button>
-            <button onclick="startWeatherPlaylistWeather('rain')">rain</button>
-            <button onclick="startWeatherPlaylistWeather('clear')">clear</button>
-            <button onclick="startWeatherPlaylistWeather('clouds')">clouds</button>
-            <button onclick="startWeatherPlaylistWeather('thunderstorm')">thunderstorm</button>
-            <button onclick="startWeatherPlaylistWeather('fog')">fog</button>
-            <button onclick="startWeatherPlaylistWeather('tornado')">tornado</button>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('snow')" src="snowflake.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('rain')" src="rain.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('clear')" src="sun.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('clouds')" src="cloud.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('thunderstorm')" src="thunderstorm.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('fog')" src="fog.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('tornado')" src="tornado.png" />
         </div>
     </div>
 
