@@ -4,6 +4,11 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
+#map {
+  height: 250px;
+  width: 100%
+}
+
 .grid-container > div {
   padding: 30px;
   font-size: 30px;
