@@ -1,5 +1,10 @@
 package apigateway;
 
+import apimediator.OpenWeatherApiConnect;
+import com.google.gson.JsonObject;
+import connectSpotify.ClientCredidentials;
+import connectSpotify.SearchTrack;
+
 import static spark.Spark.*;
 
 
@@ -14,7 +19,17 @@ public class weatherAPI {
 			String longitude = request.queryParams("lng");
 			String latitude = request.queryParams("lat");
 
-			return "location: " + longitude + ", " + latitude;
+			Double longi = Double.parseDouble(longitude);
+			Double lati = Double.parseDouble(latitude);
+
+			String weather = OpenWeatherApiConnect.getWeatherCondition(longi,lati);
+			System.out.println(weather);
+			String access_token = ClientCredidentials.connect();
+			System.out.println(access_token);
+			String spotifyarray = SearchTrack.connectToSpotify(access_token, weather).toString();
+			System.out.println(spotifyarray);
+
+			return spotifyarray ;
 		}));
 
 		get("/weather/thunderstorm", (req, res) -> {
@@ -22,6 +37,9 @@ public class weatherAPI {
 		});
 
 		get("/weather/drizzle", (req, res) -> {
+
+
+			ClientCredidentials.connect();
 			return "Drizzle";
 		});
 

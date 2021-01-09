@@ -11,7 +11,7 @@ public class spotifyAPI {
 
     public spotifyAPI() {
         //clientCredidentials = new ClientCredidentials();
-        searchTrack = new SearchTrack();
+       // searchTrack = new SearchTrack();
 
     }
 

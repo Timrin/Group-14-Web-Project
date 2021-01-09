@@ -3,6 +3,7 @@ package apimediator;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import connectSpotify.ClientCredidentials;
+import connectSpotify.SearchTrack;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -12,6 +13,7 @@ import org.apache.http.util.EntityUtils;
 /**
  * Class which connects to the Openweather API to receive a precise weather update by using Latitude and Longitude
  * <p>
+ *
  * @author
  */
 
@@ -25,7 +27,7 @@ public class OpenWeatherApiConnect {
      * @return Weather Condition and alot of other information
      */
 
-    public static String getWeatherCondition(double lat, double lon) {
+    public static String getWeatherCondition(double lat, double lon) { //tatt bort string
         String ret = " ";
         CloseableHttpClient client = HttpClientBuilder.create().build();
         String url = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&cnt=1&appid=" + API_KEY;
@@ -96,15 +98,14 @@ public class OpenWeatherApiConnect {
 
     public static void main(String[] args) {
         System.out.println("Hello World");
-        String res = OpenWeatherApiConnect.getWeatherCondition(55.6059,13.0007); // Coordinates for Malmo
-        System.out.println(res);
-
+       // String res =
+                OpenWeatherApiConnect.getWeatherCondition(55.6059, 13.0007); // Coordinates for Malmo
+        //  System.out.println(res);
+        ClientCredidentials.connect();
         // test av å hente weathertype til spotify. funker nice.
-        ClientCredidentials clientCredidentials = new ClientCredidentials(res);
-        clientCredidentials.connect(res);
-
-
-
+        //ClientCredidentials clientCredidentials = new ClientCredidentials(res);
+        //  clientCredidentials.connect(res);
+       // SearchTrack.collectiveInfoToApi();
     }
 
 }
