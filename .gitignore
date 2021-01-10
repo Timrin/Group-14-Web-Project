@@ -1,3 +1,6 @@
+#OS specific
+.DS_Store
+
 #Maven specific
 target/
 pom.xml.tag
