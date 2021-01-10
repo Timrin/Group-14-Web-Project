@@ -3,7 +3,6 @@ package apimediator;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import connectSpotify.ClientCredidentials;
-import connectSpotify.SearchTrack;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -48,6 +47,8 @@ public class OpenWeatherApiConnect {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        System.out.println("Weather api");
         return ret;
     }
 
@@ -96,16 +97,5 @@ public class OpenWeatherApiConnect {
         return ret;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello World");
-       // String res =
-                OpenWeatherApiConnect.getWeatherCondition(55.6059, 13.0007); // Coordinates for Malmo
-        //  System.out.println(res);
-        ClientCredidentials.connect();
-        // test av å hente weathertype til spotify. funker nice.
-        //ClientCredidentials clientCredidentials = new ClientCredidentials(res);
-        //  clientCredidentials.connect(res);
-       // SearchTrack.collectiveInfoToApi();
-    }
 
 }
