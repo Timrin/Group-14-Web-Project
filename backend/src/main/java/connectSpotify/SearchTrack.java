@@ -1,8 +1,6 @@
 package connectSpotify;
 
-import apimediator.WeatherCondition;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -11,82 +9,114 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.HttpClients;
-import spotify.Envelope;
-import spotify.Item;
-import spotify.Track;
+import spotify.*;
 import java.io.*;
-import java.util.HashMap;
 import java.util.List;
-
 
 public class SearchTrack {
 
-    private HttpResponse httpResponse = null;
-    private HttpClient httpclient = null;
-    private StatusLine status = null;
-    private HttpEntity httpEntity = null;
-    private InputStream dataStream = null;
-    private Reader reader = null;
-    private Gson gson = null;
-    private List<Item> items = null;
-    private Track tracks = null;
-    private String weatherType;
-
-    //Create Get request using accesscode, get data and use Reader object to later parse into Track object
-    //todo Denne metoden behøver å ta i mot været
-    public void connectToSpotify(String ACCESS_CODE, String weatherType) {
+    /**
+     * This method searches for a track form spotify, using the weather parameter.
+     * The method uses a Get-request to the spotify api.
+     * @param ACCESS_CODE from connectToSpotify
+     * @param weather from OpenWeatherApiConnect
+     * @return jsonarray
+     * */
+    public static JsonArray getTrackFromSpotify(String ACCESS_CODE, String weather) { // fjernet weather
 
         String url = "https://api.spotify.com/v1/search";
         try {
-            httpclient = HttpClients.custom().build();
+            HttpClient httpclient = HttpClients.custom().build();
             HttpUriRequest request = RequestBuilder.get()
                     .setUri(url)
                     .addHeader(HttpHeaders.AUTHORIZATION, ACCESS_CODE)
-                    .addParameter("q", weatherType)      //FIXME: value ska vara weatherType
+                    .addParameter("q", "track:" + weather)      //FIXME: value ska vara weatherType
                     .addParameter("type", "track")
-                    .addParameter("limit", "2")
+                    .addParameter("limit", "10")
                     .build();
-            httpResponse = httpclient.execute(request);
-            status = httpResponse.getStatusLine();
-            System.out.println(status);
+            HttpResponse httpResponse = httpclient.execute(request);
+            StatusLine status = httpResponse.getStatusLine();
+
 
             if (status.getStatusCode() == 200) {
-                httpEntity = httpResponse.getEntity();
-                dataStream = httpEntity.getContent();
+                System.out.println(status);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                InputStream dataStream = httpEntity.getContent();
 
-                reader = new InputStreamReader(dataStream);
-                gsonParser(reader);
+                Reader reader = new InputStreamReader(dataStream);
+                return jsonToJava(reader);
+
+            } else if (status.getStatusCode() != 200) {
+                System.out.println("not 200");
             }
-
         } catch (IOException | JsonSyntaxException e) {
             System.out.println(e.getMessage());
         }
+        return null;
     }
 
-    //Parse reader to Track object using Gson
-    public void gsonParser(Reader reader) {
+    /**
+     * This method uses marshalling to parse json objects to java objects.
+     * @param reader getTrackFromSpotify gives this method a json Object
+     * @return JsonArray pickRelevantInfo
+     * */
+    public static JsonArray jsonToJava(Reader reader) {
 
-        gson = new Gson();
+        Gson gson = new Gson();
         Envelope envelope = gson.fromJson(reader, Envelope.class);
-        tracks = envelope.getTracks();
-        items = tracks.getItems();
-      //  ArrayList<String> playlist = new ArrayList<>();
+        Track tracks = envelope.getTracks();
+        List<Item> items = tracks.getItems();
 
-       /* for (Item item : items) {
-            String trackUri = item.getUri();
-            String title = item.getName();
-            playlist.add(title+" "+trackUri);
-            System.out.println(playlist.get(0));
-        }*/
+        return pickRelevantInfo(items);
 
-        HashMap<String, String> playlist = new HashMap<>();
-        for (Item item : items) {
-            String trackUri = item.getUri();
-            String title = item.getName();
-            playlist.put(title,trackUri);
-
-            System.out.println(playlist);
-        }
     }
 
+
+    /**
+     * This method picks out relevant information
+     * @param items List of java objects
+     * @return a jsonArray, that will be sent back to frontend
+     * */
+    public static JsonArray pickRelevantInfo(List<Item> items) {
+        JsonArray arr = new JsonArray();
+        String singer = null;
+
+        for (Item item : items) {
+            String uri = item.getUri();
+            Artist[] artist = item.getArtists();
+            for (Artist artists : artist) {
+                singer = artists.getName();
+            }
+            String track_name = item.getName();
+            Frontend frontend = new Frontend(track_name, singer, uri);
+
+            arr.add(javaToJson(frontend));
+        }
+        JsonObject obj;
+        obj = new JsonObject();
+        obj.add("track", arr);
+
+        return arr;
+    }
+
+/**
+ * This method parses java objects of track info to Json objects.
+ *
+ * @param item given by pickRelevantInfo(). Objects to parse.
+ * @return JsonObject will be sent to frontend via other methods.
+ * */
+    public static JsonObject javaToJson(Frontend item) {
+        Gson gson = new Gson();
+
+        JsonElement track = gson.toJsonTree(item.getTrack_name());
+        JsonElement artist = gson.toJsonTree(item.getArtist());
+        JsonElement uri = gson.toJsonTree(item.getUri());
+
+        JsonObject mus = new JsonObject();
+        mus.add("track_name", track);
+        mus.add("artist", artist);
+        mus.add("uri", uri);
+
+        return mus;
+    }
 }

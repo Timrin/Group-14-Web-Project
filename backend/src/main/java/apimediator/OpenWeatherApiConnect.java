@@ -2,7 +2,6 @@ package apimediator;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import connectSpotify.ClientCredidentials;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -12,6 +11,7 @@ import org.apache.http.util.EntityUtils;
 /**
  * Class which connects to the Openweather API to receive a precise weather update by using Latitude and Longitude
  * <p>
+ *
  * @author
  */
 public class OpenWeatherApiConnect {
@@ -24,7 +24,7 @@ public class OpenWeatherApiConnect {
      * @param lon Longitude position of the location
      * @return Weather from the location as plain text, ex. Rain or Clouds
      */
-    public static String getCurrentWeather(double lat, double lon) {
+    public static String getWeatherCondition(double lat, double lon) {
         String ret = "";
 
         String response = fetchWeatherFromOpenWeather(lat, lon);
@@ -130,17 +130,5 @@ public class OpenWeatherApiConnect {
         return ret;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello World");
-        String res = OpenWeatherApiConnect.fetchWeatherFromOpenWeather(55.6059,13.0007); // Coordinates for Malmo
-        System.out.println(res);
-
-        // test av å hente weathertype til spotify. funker nice.
-        ClientCredidentials clientCredidentials = new ClientCredidentials(res);
-        clientCredidentials.connect(res);
-
-
-
-    }
 
 }
