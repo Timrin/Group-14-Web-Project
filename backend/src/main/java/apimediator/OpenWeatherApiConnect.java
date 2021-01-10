@@ -4,8 +4,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import connectSpotify.ClientCredidentials;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
@@ -14,48 +14,79 @@ import org.apache.http.util.EntityUtils;
  * <p>
  * @author
  */
-
 public class OpenWeatherApiConnect {
     private static String API_KEY = ""; //Ta bort innan du pushar upp!!!!!!!!!!!!
 
     /**
-     * Method which fetches an Json object from openWeather api
-     * <p>
+     * Method for getting the weather of a specific location
      *
-     * @return Weather Condition and alot of other information
+     * @param lat Latitude position of the location
+     * @param lon Longitude position of the location
+     * @return Weather from the location as plain text, ex. Rain or Clouds
      */
+    public static String getCurrentWeather(double lat, double lon) {
+        String ret = "";
 
-    public static String getWeatherCondition(double lat, double lon) {
+        String response = fetchWeatherFromOpenWeather(lat, lon);
+
+        JsonParser parser = new JsonParser();
+        JsonObject obj = parser.parse(response).getAsJsonObject();
+
+        String weatherId = (((JsonObject) obj.getAsJsonArray("list")
+                .get(0)).getAsJsonArray("weather")
+                .get(0).getAsJsonObject()
+                .get("id")).toString();
+
+        ret = getWeatherFromId(weatherId);
+
+        return ret;
+    }
+
+    /**
+     * Method for querying the OpenWeather API for the weather of a specific location
+     *
+     * @param lat Latitude parameter value that will be sent with the query
+     * @param lon Longitude parameter value that will be sent with the query
+     * @return Response from the server, as a JSON formatted String
+     */
+    private static String fetchWeatherFromOpenWeather(double lat, double lon) {
         String ret = " ";
-        CloseableHttpClient client = HttpClientBuilder.create().build();
+
+        HttpClient client = HttpClientBuilder.create().build();
         String url = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&cnt=1&appid=" + API_KEY;
         HttpGet get = new HttpGet(url);
+
         try {
             HttpResponse httpResponse = client.execute(get);
-            String result = EntityUtils.toString(httpResponse.getEntity());
-            System.out.println(result);
-            JsonParser parser = new JsonParser();
-            JsonObject obj = parser.parse(result).getAsJsonObject();
-            System.out.println(obj.get("cod").getAsString());
 
-            String weatherId = (((JsonObject) obj.getAsJsonArray("list")
-                    .get(0)).getAsJsonArray("weather")
-                    .get(0).getAsJsonObject()
-                    .get("id")).toString();
-            ret = getWeatherFromId(weatherId);
+            ret = EntityUtils.toString(httpResponse.getEntity());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ret;
     }
 
+    /**
+     * Overloaded getWeatherFromId
+     * This method takes the id as a String instead of an int
+     *
+     * @param id OpenWeatherAPI weather id as an String, see @link{https://openweathermap.org/weather-conditions}
+     * @return Weather as plain text, ex. Rain or Clouds
+     */
     private static String getWeatherFromId(String id) {
         return getWeatherFromId(Integer.parseInt(id));
     }
 
+    /**
+     * Helper method for converting an OpenWeatherAPI weather condition id to plain text weather
+     *
+     * @param id OpenWeatherAPI weather id as an int, see @link{https://openweathermap.org/weather-conditions}
+     * @return Weather as plain text, ex. Rain or Clouds
+     */
     private static String getWeatherFromId(int id) {
         int modId = id / 100;
-        String ret = "Clear";
+        String ret = "Clear"; //Clear weather is default
 
         switch (id) {
             case 800:
@@ -71,14 +102,19 @@ public class OpenWeatherApiConnect {
                 break;
             case 781:
                 ret = "Tornado";
+                break;
+            case 611:
+            case 612:
+            case 613:
+                ret = "Hail";
+                break;
             default:
                 switch (modId) {
                     case 2:
                         ret = "Thunderstorm";
                         break;
                     case 3:
-                        ret = "Drizzle";
-                        break;
+                        //ret = "Drizzle"; //Drizzle is rain, so let the case fall through
                     case 5:
                         ret = "Rain";
                         break;
@@ -96,7 +132,7 @@ public class OpenWeatherApiConnect {
 
     public static void main(String[] args) {
         System.out.println("Hello World");
-        String res = OpenWeatherApiConnect.getWeatherCondition(55.6059,13.0007); // Coordinates for Malmo
+        String res = OpenWeatherApiConnect.fetchWeatherFromOpenWeather(55.6059,13.0007); // Coordinates for Malmo
         System.out.println(res);
 
         // test av å hente weathertype til spotify. funker nice.
