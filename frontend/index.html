@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+
+
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBboUfXTkw4URtDw7603noCIQniKEnq8C0&callback=initMap&libraries=&v=weekly"
+    defer></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="script.js"></script>
+
+</head>
+<body>
+<div class="grid-container">
+<div class="item1">
+    <p class="play">Playing...</p>
+    <h1 id="currentplaying">Nothing Playing</h1>
+    <div id="playControls">
+        <button id="TogglePlay" class="btnPrimary">
+            <img class="mediaControlIcon" src="play_arrow-white-18dp.svg">
+        </button>
+        <button id="SkipSong" class="btnPrimary">
+            <img class="mediaControlIcon" src="skip_next-white-18dp.svg">
+        </button>
+    </div>
+</div>
+
+<div class="item10">
+    <p class="play">Playing from...</p>
+    <h1 id="currentplaylist"></h1>
+</div>
+
+<div class="item2">
+    <div id="clouddiv" class="left">
+        <p>Want the perfect playlist for the weather outside?</p>
+        <h1 class="pink">Try out the Weather playlist!</h1> 
+    </div>
+    <img src="cloudy.png" alt="ikon" id="cloud">
+</div>
+
+    <div class="item3"> 
+        <p>Get weather from a location</p>
+        <div id="map"></div>
+        <div>
+            <button class="btnPrimary" onclick="selectMapLocation()">Select Location</button>
+            <button class="btnPrimaryAlt" onclick="loadUserGeolocation()">Use my location</button>
+        </div>
+        <h1 id="locationWeatherHeader"><br>&nbsp;</h1>
+    </div>
+
+    <div class="item4">
+        <p>Select weather manually</p>
+        <div class="selectmanually"> 
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('snow')" src="snowflake.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('rain')" src="rain.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('clear')" src="sun.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('clouds')" src="cloud.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('thunderstorm')" src="thunderstorm.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('fog')" src="fog.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('tornado')" src="tornado.png" />
+        </div>
+    </div>
+
+    <div class="item5">
+        <div class="playlistdiv left">
+        <p>Or maybe a playlist for the season?</p>
+        <h1 class="purple">Try the Seasonal Playlist!</h1>
+        </div >
+        <div class="calendardiv">
+            <img src="calendar.png" id="calendar">
+        </div>
+        <button id="playbutton" class="btnSecondary"> <p> Play </p><img src="play.png" alt="playimg" id="playimg"></button>
+    </div>
+
+    <div class="item6">
+        <p>Finns det någon funktion som kan fylla detta utrymme?</p>
+    </div>
+
+</div>
+</body>
+</html>
