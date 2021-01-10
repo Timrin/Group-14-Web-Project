@@ -113,7 +113,7 @@ h1 {
 #currentplaying, #currentplaylist, #locationWeatherHeader{
   font-size: 22px;
   display: inline-block;
-  
+
   overflow: hidden;
   white-space: nowrap;
 }
@@ -174,11 +174,15 @@ p{
   }
 
   .item1, .item2, .item3, .item4, .item10{
+    overflow: hidden;
+
     background-color: #3D398A;
     box-shadow: 10px 10px #E6398A;
   }
 
   .item5, .item6{
+    overflow: hidden;
+    
     background-color:  #E6398A;
     box-shadow: 10px 10px #3D398A;
   }

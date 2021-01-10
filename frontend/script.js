@@ -1,6 +1,6 @@
 let map; //google maps js api
 
-const serverIP = 'http://localhost:5000';
+const serverIP = 'http://localhost:5000/api/v1';
 
 var player; //spotify web sdk player object
 var play; //spotify play function

@@ -35,7 +35,7 @@ public class weatherAPI {
 			JsonObject obj = new JsonObject();
 
 			obj.add("weather", weatherJson);
-			obj.add("track",spotifyarray);
+			obj.add("tracks",spotifyarray);
 
 			System.out.println(spotifyarray);
 			return obj ;
@@ -43,51 +43,86 @@ public class weatherAPI {
 
 		get("/api/v1/weather/thunderstorm", (req, res) -> {
 			res.header("Content-Type", "application/json");
+
 			String access_token = ClientCredidentials.connectToSpotify();
-			String spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "thunderstorm").toString();
-			return spotifyarray;
+			JsonArray spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "thunderstorm");
+
+
+			JsonObject obj = new JsonObject();
+			obj.add("tracks",spotifyarray);
+
+			return obj;
 		});
 
-		get("/api/v1//weather/drizzle", (req, res) -> {
+		get("/api/v1/weather/drizzle", (req, res) -> {
 			res.header("Content-Type", "application/json");
+
 			String access_token = ClientCredidentials.connectToSpotify();
-			String spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "drizzle").toString();
-			return spotifyarray;
+			JsonArray spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "drizzle");
+
+			JsonObject obj = new JsonObject();
+			obj.add("tracks",spotifyarray);
+
+			return obj;
 		});
 
-		get("/api/v1//weather/rain", (req, res) -> {
+		get("/api/v1/weather/rain", (req, res) -> {
 			res.header("Content-Type", "application/json");
+
 			String access_token = ClientCredidentials.connectToSpotify();
-			String spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "rain").toString();
-			return spotifyarray;
+			JsonArray spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "rain");
+
+			JsonObject obj = new JsonObject();
+			obj.add("tracks",spotifyarray);
+
+			return obj;
 		});
 
-		get("/api/v1//weather/snow", (req, res) -> {
+		get("/api/v1/weather/snow", (req, res) -> {
 			res.header("Content-Type", "application/json");
+
 			String access_token = ClientCredidentials.connectToSpotify();
-			String spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "snow").toString();
-			return spotifyarray;
+			JsonArray spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "snow");
+
+			JsonObject obj = new JsonObject();
+			obj.add("tracks",spotifyarray);
+
+			return obj;
 		});
 
-		get("/api/v1//weather/fog", (req, res) -> {
+		get("/api/v1/weather/fog", (req, res) -> {
 			res.header("Content-Type", "application/json");
+
 			String access_token = ClientCredidentials.connectToSpotify();
-			String spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "fog").toString();
-			return spotifyarray;
+			JsonArray spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "fog");
+
+			JsonObject obj = new JsonObject();
+			obj.add("tracks",spotifyarray);
+
+			return obj;
 		});
 
-		get("/api/v1//weather/clear", (req, res) -> {
+		get("/api/v1/weather/clear", (req, res) -> {
 			res.header("Content-Type", "application/json");
 			String access_token = ClientCredidentials.connectToSpotify();
-			String spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "clear").toString();
-			return spotifyarray;
+			JsonArray spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "clear");
+
+			JsonObject obj = new JsonObject();
+			obj.add("tracks",spotifyarray);
+
+			return obj;
 		});
 
-		get("/api/v1//weather/clouds", (req, res) -> {
+		get("/api/v1/weather/clouds", (req, res) -> {
 			res.header("Content-Type", "application/json");
+
 			String access_token = ClientCredidentials.connectToSpotify();
-			String spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "clouds").toString();
-			return spotifyarray;
+			JsonArray spotifyarray = SearchTrack.getTrackFromSpotify(access_token, "clouds");
+
+			JsonObject obj = new JsonObject();
+			obj.add("tracks",spotifyarray);
+
+			return obj;
 		});
 
 		//CORS boilerplate
