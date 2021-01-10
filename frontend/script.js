@@ -145,6 +145,8 @@ function startWeatherPlaylistGeo(lat, lng) {
             spotify_uri: trackUriArray
         });
 
+        setPlayingFromHeader("Weather Playlist");
+
     }).catch(error => {
         console.log("Error in startWeatherPlaylistGeo: " + error);
     });
@@ -165,10 +167,35 @@ function startWeatherPlaylistWeather(weather) {
             spotify_uri: trackUriArray
         });
 
+        setPlayingFromHeader("Weather Playlist");
+
     }).catch(error => {
         console.log("Error in startWeatherPlaylistWeather: " + error);
     });
 
+}
+
+function setSongTitleArtistHeader(title, artist) {
+    console.log("setting title artist")
+    document.getElementById('currentplaying').innerHTML = `${title} - ${artist}`;
+}
+
+function setPlayingFromHeader(playlist) {
+    document.getElementById('currentplaylist').innerHTML = `${playlist}`;
+}
+
+function setLocationWeatherHeader(city, country, weather) {
+    document.getElementById('locationWeatherHeader').innerHTML = `${city}, ${country}<br>Weather: ${weather}`;
+}
+
+function setTogglePlayIcon(isPaused) {
+    if(isPaused) {
+        //Use the pause icon
+        document.getElementById('TogglePlay').getElementsByClassName("mediaControlIcon")[0].src = "play_arrow-white-18dp.svg"
+    } else {
+        //Use the play arrow icon
+        document.getElementById('TogglePlay').getElementsByClassName("mediaControlIcon")[0].src = "pause-white-18dp.svg"
+    }
 }
 
 /*
@@ -232,6 +259,8 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     // Playback status updates
     player.addListener('player_state_changed', state => {
         console.log(state);
+        setSongTitleArtistHeader(state.track_window.current_track.name, state.track_window.current_track.artists[0].name);
+        setTogglePlayIcon(state.paused);
     });
 
     // Ready
