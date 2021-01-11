@@ -32,7 +32,7 @@ public class SeasonTrack {
         } else if (month >= 6 && month < 9) {
             season = "Summer";
         } else if (month >= 9 && month < 11) {
-            season = "Fall";
+            season = "Autumn";
         } else if (month == 12) {
             season = "Christmas";
         } else
@@ -54,7 +54,7 @@ public class SeasonTrack {
             case "Winter":
                 uri = "spotify:track:1jWQ4n73jdT7y9gR2VHu0g";
                 break;
-            case "Fall":
+            case "Autumn":
                 uri = "spotify:track:65WvqwvSRc7z1627c5f5nC";
                 break;
             case "Summer":
@@ -95,6 +95,7 @@ public class SeasonTrack {
 
         trackArray.add(obj);
         JsonObject jsonObject = new JsonObject();
+        jsonObject.add("season",jsonTrack);
         jsonObject.add("tracks",trackArray);
         return jsonObject;
 
