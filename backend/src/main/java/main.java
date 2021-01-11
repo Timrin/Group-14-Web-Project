@@ -1,3 +1,4 @@
+import apigateway.seasonAPI;
 import apigateway.weatherAPI;
 
 import static spark.Spark.port;
@@ -10,6 +11,7 @@ public class main {
 		port(5000);
 
 		weatherAPI.initAPI();
+		seasonAPI.initAPI();
 
 		System.out.println("Server Running");
 
