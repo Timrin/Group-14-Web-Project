@@ -16,12 +16,12 @@ public class weatherAPI {
 
 	//This array contains all of the available weather resources
 	private static String[] weatherEndpoints = {
-			"clear",
+			"sunny",
 			"fog",
 			"ash",
 			"tornado",
 			"hail",
-			"thunderstorm",
+			"thunder",
 			"rain",
 			"snow",
 			"clouds"

@@ -12,6 +12,7 @@ import org.apache.http.impl.client.HttpClients;
 import spotify.*;
 import java.io.*;
 import java.util.List;
+import java.util.Random;
 
 public class SearchTrack {
 
@@ -24,6 +25,7 @@ public class SearchTrack {
      * */
     public static JsonArray getTrackFromSpotify(String ACCESS_CODE, String weather) { // fjernet weather
 
+        int offset = new Random().nextInt(201);
         String url = "https://api.spotify.com/v1/search";
         try {
             HttpClient httpclient = HttpClients.custom().build();
@@ -33,6 +35,7 @@ public class SearchTrack {
                     .addParameter("q", "track:" + weather)      //FIXME: value ska vara weatherType
                     .addParameter("type", "track")
                     .addParameter("limit", "10")
+                    .addParameter("offset", String.valueOf(offset))
                     .build();
             HttpResponse httpResponse = httpclient.execute(request);
             StatusLine status = httpResponse.getStatusLine();

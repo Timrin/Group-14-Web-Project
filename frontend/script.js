@@ -50,7 +50,7 @@ function initMap() {
 }
 
 /**
- * This function will read the coordinates at the center of 
+ * This function will read the coordinates at the center of
  * the map and start the weather playlist with that location.
  */
 function selectMapLocation() {
@@ -84,7 +84,7 @@ function loadUserGeolocation() {
 
 /**
  * Method for querying our API for a location based weather playlist
- * 
+ *
  * @param {String} lat Latitude parameter value that will be sent with the query
  * @param {String} lng Longitude parameter value that will be sent with the query
  * @returns {String} Response body data from the api query
@@ -109,7 +109,7 @@ async function fetchWeatherPlaylistGeo(lat, lng) {
 
 /**
  * Method for querying our API for a specific weather playlist
- * 
+ *
  * @param {String} weather Weather parameter value that will be sent with the query. The weather the playlist will be based upon
  * @returns {String} Response body data from the api query
  */
@@ -175,6 +175,45 @@ function startWeatherPlaylistWeather(weather) {
 
 }
 
+async function fetchSeasonPlaylist() {
+    var fetchUrl = serverIP + "/season";
+    var res = "";
+
+    res = fetch(fetchUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then((response) => response.text()
+    ).then((data) => {
+        console.log(data);
+        return JSON.parse(data);
+    });
+
+    return res;
+}
+
+function startSeasonPlaylist(){
+  fetchSeasonPlaylist().then(res =>  {
+
+      var trackUriArray = [];
+      res.tracks.forEach(track => {
+          trackUriArray.push(track.uri);
+      });
+
+      play({
+          playerInstance: player,
+          spotify_uri: trackUriArray
+      });
+
+      setPlayingFromHeader("Season Playlist");
+
+  }).catch(error => {
+      console.log("Error in startSeasonPlaylist: " + error);
+  });
+
+}
+
 function setSongTitleArtistHeader(title, artist) {
     console.log("setting title artist")
     document.getElementById('currentplaying').innerHTML = `${title} - ${artist}`;
@@ -205,7 +244,7 @@ HELPER FUNCTIONS
 /**
  * Method for reading a cookie value from the cookie jar
  * Function from https://www.w3schools.com/js/js_cookies.asp
- * 
+ *
  * @param {String} cname The name of the cookie
  */
 function getCookie(cname) {
@@ -227,7 +266,7 @@ function getCookie(cname) {
 /**
  * Method for storing a cookie in the cookie jar
  * Function from https://www.w3schools.com/js/js_cookies.asp
- * 
+ *
  * @param {String} cname The name of the cookie
  * @param {any} cvalue The value to be stored
  * @param {number} exHours Time to expiration, in hours
@@ -251,7 +290,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     });
 
     // Error handling
-    player.addListener('authentication_error', ({ message }) => { console.error(message); }); 
+    player.addListener('authentication_error', ({ message }) => { console.error(message); });
     player.addListener('initialization_error', ({ message }) => { console.error(message); });
     player.addListener('account_error', ({ message }) => { console.error(message); });
     player.addListener('playback_error', ({ message }) => { console.error(message); });

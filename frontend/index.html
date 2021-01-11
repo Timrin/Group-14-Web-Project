@@ -39,12 +39,12 @@
 <div class="item2">
     <div id="clouddiv" class="left">
         <p>Want the perfect playlist for the weather outside?</p>
-        <h1 class="pink">Try out the Weather playlist!</h1> 
+        <h1 class="pink">Try out the Weather playlist!</h1>
     </div>
     <img src="cloudy.png" alt="ikon" id="cloud">
 </div>
 
-    <div class="item3"> 
+    <div class="item3">
         <p>Get weather from a location</p>
         <div id="map"></div>
         <div>
@@ -56,12 +56,12 @@
 
     <div class="item4">
         <p>Select weather manually</p>
-        <div class="selectmanually"> 
+        <div class="selectmanually">
             <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('snow')" src="snowflake.png"/>
             <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('rain')" src="rain.png"/>
-            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('clear')" src="sun.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('sunny')" src="sun.png"/>
             <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('clouds')" src="cloud.png"/>
-            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('thunderstorm')" src="thunderstorm.png"/>
+            <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('thunder')" src="thunderstorm.png"/>
             <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('fog')" src="fog.png"/>
             <input type="image" id="weatheric" onclick="startWeatherPlaylistWeather('tornado')" src="tornado.png" />
         </div>
@@ -75,7 +75,7 @@
         <div class="calendardiv">
             <img src="calendar.png" id="calendar">
         </div>
-        <button id="playbutton" class="btnSecondary"> <p> Play </p><img src="play.png" alt="playimg" id="playimg"></button>
+        <button id="playbutton" class="btnSecondary" onclick="startSeasonPlaylist()"> <p> Play </p><img src="play.png" alt="playimg" id="playimg"></button>
     </div>
 
     <div class="item6">

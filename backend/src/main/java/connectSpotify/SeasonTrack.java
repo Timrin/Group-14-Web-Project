@@ -1,6 +1,7 @@
 package connectSpotify;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.Calendar;
@@ -90,7 +91,13 @@ public class SeasonTrack {
         obj.add("artist", jsonArtist);
         obj.add("uri", jsonUri);
 
-        return obj;
+        JsonArray trackArray = new JsonArray();
+
+        trackArray.add(obj);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add("tracks",trackArray);
+        return jsonObject;
+
 
     }
 

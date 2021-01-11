@@ -86,11 +86,11 @@ public class OpenWeatherApiConnect {
      */
     private static String getWeatherFromId(int id) {
         int modId = id / 100;
-        String ret = "Clear"; //Clear weather is default
+        String ret = "Sunny"; //Clear weather is default
 
         switch (id) {
             case 800:
-                ret = "Clear";
+                ret = "Sunny";
                 break;
             case 701:
             case 721:
@@ -111,7 +111,7 @@ public class OpenWeatherApiConnect {
             default:
                 switch (modId) {
                     case 2:
-                        ret = "Thunderstorm";
+                        ret = "Thunder";
                         break;
                     case 3:
                         //ret = "Drizzle"; //Drizzle is rain, so let the case fall through
