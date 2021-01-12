@@ -36,6 +36,11 @@ public class weatherAPI {
 			String longitude = req.queryParams("lng");
 			String latitude = req.queryParams("lat");
 
+			if (latitude == null || longitude == null) {
+				res.status(400);
+				return "Bad query";
+			}
+
 			double longi = Double.parseDouble(longitude);
 			double lati = Double.parseDouble(latitude);
 
@@ -63,7 +68,7 @@ public class weatherAPI {
 
 			if(!Arrays.asList(weatherEndpoints).contains(weather)) {
 				//Not a valid weather endpoint
-				return null;
+				return null; //Results in a 404 response
 			}
 
 			String access_token = ClientCredidentials.connectToSpotify();
