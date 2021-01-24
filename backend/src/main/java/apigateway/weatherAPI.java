@@ -7,6 +7,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import connectSpotify.ClientCredidentials;
 import connectSpotify.SearchTrack;
+import netscape.javascript.JSObject;
+
 import java.util.Arrays;
 
 import static spark.Spark.*;
@@ -31,6 +33,24 @@ public class weatherAPI {
 	 * Method for initializing all the weather endpoints
 	 */
 	public static void initAPI() {
+
+		get("/api/v1/weather", (req, res) -> {
+			String path = req.host() + req.pathInfo() + "/";
+
+			JsonArray uriArray = new JsonArray();
+
+			for (String endpoint: weatherEndpoints) {
+				String uri = path + endpoint;
+
+				JsonObject uriObject = new JsonObject();
+
+				uriObject.addProperty("weather_uri", uri);
+
+				uriArray.add(uriObject);
+			}
+
+			return uriArray;
+		});
 
 		get("/api/v1/weather/bylocation", ((req, res) -> {
 			String longitude = req.queryParams("lng");
