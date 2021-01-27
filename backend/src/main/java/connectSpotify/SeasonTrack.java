@@ -33,9 +33,7 @@ public class SeasonTrack {
             season = "Summer";
         } else if (month >= 9 && month < 11) {
             season = "Autumn";
-        } else if (month == 12) {
-            season = "Christmas";
-        } else
+        }  else
             season = "Winter";
 
         return season;
@@ -76,7 +74,7 @@ public class SeasonTrack {
      *
      * @return JsonObject
      */
-    public static JsonObject spotifySeason() {
+    public static JsonElement spotifySeason() {
         String season = seasonSet();
         String uri = selectUri();
         String artist = "Vivaldi, Recomposed by Max Richter";
@@ -87,7 +85,7 @@ public class SeasonTrack {
         JsonElement jsonUri = gson.toJsonTree(uri);
 
         JsonObject obj = new JsonObject();
-        obj.add("track", jsonTrack);
+        obj.add("track_name", jsonTrack);
         obj.add("artist", jsonArtist);
         obj.add("uri", jsonUri);
 
@@ -97,7 +95,8 @@ public class SeasonTrack {
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("season",jsonTrack);
         jsonObject.add("tracks",trackArray);
-        return jsonObject;
+        //return jsonObject;
+        return trackArray;
 
 
     }
