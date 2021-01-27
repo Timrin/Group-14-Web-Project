@@ -20,21 +20,35 @@ public class SearchTrack {
      * This method searches for a track form spotify, using the weather parameter.
      * The method uses a Get-request to the spotify api.
      * @param ACCESS_CODE from connectToSpotify
-     * @param weather from OpenWeatherApiConnect
+     * @param searchWord from OpenWeatherApiConnect
      * @return jsonarray
      * */
-    public static JsonArray getTrackFromSpotify(String ACCESS_CODE, String weather) { // fjernet weather
+    public static JsonArray getTrackFromSpotify(String ACCESS_CODE, String searchWord) { // fjernet weather
 
         int offset = new Random().nextInt(201);
+
+        return getTrackFromSpotify(ACCESS_CODE, searchWord, 10, offset);
+    }
+
+    /**
+     * Method for searching for songs using the Spotify Web API
+     *
+     * @param ACCESS_CODE Spotify auth token
+     * @param searchWord the search phrase used in the search
+     * @param limit Maximum number of songs that will be included in the return
+     * @param offset The index of the first result to return.
+     * @return Response from the server
+     * */
+    public static JsonArray getTrackFromSpotify(String ACCESS_CODE, String searchWord, int limit, int offset) {
         String url = "https://api.spotify.com/v1/search";
         try {
             HttpClient httpclient = HttpClients.custom().build();
             HttpUriRequest request = RequestBuilder.get()
                     .setUri(url)
                     .addHeader(HttpHeaders.AUTHORIZATION, ACCESS_CODE)
-                    .addParameter("q", "track:" + weather)      //FIXME: value ska vara weatherType
+                    .addParameter("q", "track:" + searchWord)
                     .addParameter("type", "track")
-                    .addParameter("limit", "10")
+                    .addParameter("limit", String.valueOf(limit))
                     .addParameter("offset", String.valueOf(offset))
                     .build();
             HttpResponse httpResponse = httpclient.execute(request);

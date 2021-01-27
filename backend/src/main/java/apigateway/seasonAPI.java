@@ -36,6 +36,7 @@ public class seasonAPI {
 			res.header("Content-Type", "application/json");
 
 			JsonObject seasonObject = buildSeasonObject();
+
 			String season = seasonObject.get("season_string").getAsString();
 			String holiday = seasonObject.get("active_holiday") == null ? null : seasonObject.get("active_holiday").getAsString();
 			JsonElement tracks = buildSeasonTrackArray(holiday, season);
@@ -54,7 +55,7 @@ public class seasonAPI {
 		JsonElement tracks;
 
 		if (holiday != null) {
-			tracks = SearchTrack.getTrackFromSpotify(access_token, holiday);
+			tracks = SearchTrack.getTrackFromSpotify(access_token, holiday, 10, 0);
 		} else if (season.equals("Christmas")) {
 			tracks = SearchTrack.getTrackFromSpotify(access_token, season);
 		} else {
