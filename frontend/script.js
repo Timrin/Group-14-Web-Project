@@ -230,10 +230,10 @@ function setLocationWeatherHeader(city, country, weather) {
 function setTogglePlayIcon(isPaused) {
     if(isPaused) {
         //Use the pause icon
-        document.getElementById('TogglePlay').getElementsByClassName("mediaControlIcon")[0].src = "play_arrow-white-18dp.svg"
+        document.getElementById('TogglePlay').getElementsByClassName("mediaControlIcon")[0].src = "images/playback-play.svg"
     } else {
         //Use the play arrow icon
-        document.getElementById('TogglePlay').getElementsByClassName("mediaControlIcon")[0].src = "pause-white-18dp.svg"
+        document.getElementById('TogglePlay').getElementsByClassName("mediaControlIcon")[0].src = "images/playback-pause.svg"
     }
 }
 
